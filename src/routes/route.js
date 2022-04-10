@@ -1,106 +1,70 @@
 const express = require('express');
+
 const router = express.Router();
-const logger =  require('../logger/logger');
-const helper =  require('../util/helper');
-const validate = require('../validator/formatter');
-const _  = require("lodash");
-const { request } = require('express');
-
-
-
 
 router.get('/test-me', function (req, res) {
-  logger.call()
-  
-    res.send('My first ever api!')
-
-});
-    router.get('/test-me23', function (req, res) {
-    
-    console.log('helper.js folder , date , month, year')
-    helper.date();
-    helper.month();
-    helper.batch();
+    // let a = { msg: "My first ever API response in JSON !!"} 
 
 
-    
-    console.log('formatter.js trim and tolowercase and touppercase methods');
-
-    validate.formatter();
-
-
-    res.send('My first ever api!')
-
-    
+    res.send( { msg: "My first ever API response in JSON !!"} )
 });
 
 
 
-router.get ('/hello',function(req, res){
+router.get('/test-api1', function (req, res) {
+
+    res.send( "hi FunctionUp " )
+});
 
 
-    res.send('my first ever api')
+router.get('/test-api2', function (req, res) {
 
+    res.send( { msg: "Hi FUnctionUp..again !"} )
+});
+
+
+router.get('/test-api3', function (req, res) {
+
+    res.send( { msg: "Hi FUnctionUp..again..this is another similar api !"} )
+});
+
+
+router.get('/test-api4', function (req, res) {
+
+    res.send( { msg: "Hi FUnctionUp..again..this is another similar api ..not I am getting bored!"} )
+});
+
+
+router.get('/test-api5', function (req, res) {
+
+    res.send( { msg: "Hi FUnctionUp" , name:"FunctionUp", age: "100"} )
 });
 
 
 
-    let lodash = require("lodash");
-let arr = [
-    'January', 
-    'February',
-     'March', 
-     'April', 
-     'May', 
-     'June',
-      'July', 
-      'August', 
-      'September', 
-      'October',
-       'November',
-        'December'
-   
-];
-  
+router.get('/test-api6', function (req, res) {
 
-console.log("After: ", lodash.chunk(arr, 3))
+    res.send( {   data: [12, 24, 36, 48, 60]  }   )
+});
+
+router.post('/test-post1', function (req, res) {
+
+    res.send( {  msg: "hi guys"  }   )
+});
 
 
+// to send data in  post request-> prefer sending in BODY -> click body-raw-json
+router.post('/test-post2', function (req, res) {
+    let data= req.body
+    console.log(data)
+    res.send( {  msg: "hi guys..my 2nd post req"  }   )
+});
 
 
-    
-    const first10odd =[1,3,5,7,9,11,13,15,17,19 ];
-    
-    let newarray = _.tail(first10odd)
-   console.log(newarray)
-
-   
-
-
-
-
-
-   let fivearrays = _.union([1, 2, 3],
-    [3, 4, 5], 
-    [6, 2, 7],
-    [7,8,9],
-    [9,10,11],); 
-
-// Printing the output  
-console.log(fivearrays)
-
-
-
-const finalarray = [["horror","The Shining"],["drama","Titanic"],["thriller","ShutterIsland"],["fantasy","Pans Labyrinth"]];
-
-
-let anotherarray = _.fromPairs(finalarray)
-
-console.log(anotherarray)
-
-   
+const randomController= require("../controllers/randomController.js")
+//write a post request to accept an element in post request body and add it to the given array and return the new array
+router.post('/test-post3', randomController.addToArray ); //HANDLER/CONTROLLER
 
 
 
 module.exports = router;
-// adding this comment for no reason
