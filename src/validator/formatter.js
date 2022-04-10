@@ -1,10 +1,10 @@
 
 let format = function formatter() {
 
-const greeting = '   functionup   ';
+const greeting = '   funCtioNup   ';
 
 console.log(greeting);
-// expected output: "  functionup   ";
+
 
 console.log(greeting.trim());
 
