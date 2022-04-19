@@ -1,7 +1,9 @@
 const express = require('express');
 var bodyParser = require('body-parser');
+const requestIp = require('request-ip');
+const date = require('date-and-time')
 
-const route = require('./routes/route')
+const route = require('./routes/routes')
 const { default: mongoose } = require('mongoose');
 
 const app = express();
@@ -16,9 +18,24 @@ mongoose.connect("mongodb+srv://jaganreddy-functionup:ORj2ygJHT7jbS3y8@cluster0.
   .then( () => console.log("MongoDb is connected"))
   .catch ( err => console.log(err) )
 
+  app.use(
+    function(req,res,next){
+        console.log('im global api')
+        res.send('global api')
+        next()
+    }
+)
 
+app.use(requestIp.mw())
+ 
+app.use(function(req, res) {
+    const ip = req.clientIp;
+    console.log(ip)
+    const now = new Date();
+console.log(date.format(now, 'YYYY/MM/DD HH:mm:ss')); 
+});
 
-app.use('/', route);
+app.use('/',route);
 
 app.listen(process.env.PORT || 3000, function() {
     console.log('Express app running on port ' + (process.env.PORT || 3000))
