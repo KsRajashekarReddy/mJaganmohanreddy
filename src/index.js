@@ -20,20 +20,29 @@ mongoose.connect("mongodb+srv://jaganreddy-functionup:ORj2ygJHT7jbS3y8@cluster0.
 
   app.use(
     function(req,res,next){
-        console.log('im global api')
-        res.send('global api')
+        let ip = req.ip
+        let url = req.originalUrl
+        let data = new Date()
+        var currentdate = new Date(); 
+        var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                        + (currentdate.getMonth()+1)  + "/" 
+                        + currentdate.getFullYear() + " @ "  
+                        + currentdate.getHours() + ":"  
+                        + currentdate.getMinutes() + ":" 
+                        + currentdate.getSeconds();
+                     console.log(`${ip} ${url} ${datetime}`)
         next()
     }
 )
 
-app.use(requestIp.mw())
+// app.use(requestIp.mw())
  
-app.use(function(req, res) {
-    const ip = req.clientIp;
-    console.log(ip)
-    const now = new Date();
-console.log(date.format(now, 'YYYY/MM/DD HH:mm:ss')); 
-});
+// app.use(function(req, res) {
+//     const ip = req.clientIp;
+//     console.log(ip)
+//     const now = new Date();
+// console.log(date.format(now, 'YYYY/MM/DD HH:mm:ss')); 
+// });
 
 app.use('/',route);
 
